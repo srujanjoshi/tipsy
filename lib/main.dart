@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'constants.dart';
 
 void main() {
   runApp(MyApp());
@@ -69,21 +72,23 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
+      appBar: PreferredSize(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         //title: Text(widget.title),
-        flexibleSpace: ClipPath(
-          clipper: WaveClipperTwo(reverse: true),
+        preferredSize: Size.fromHeight(100),
+        child: ClipPath(
+          clipper: WaveClipperTwo(flip:true),
           child: Container(
-            height: 250,
             width: MediaQuery.of(context).size.width,
-            color: Colors.teal,
+            color: kAppBarColor,
             child: Center(
                 child: Text(
               "Tipsy",
-              style: TextStyle(fontSize: 20, color: Colors.white),
-            )),
+              style: GoogleFonts.berkshireSwash(
+                textStyle: TextStyle(fontSize: 30, color: kTipsyTextColor)
+              ),
+            ),),
           ),
         ),
       ),
@@ -105,10 +110,53 @@ class _MyHomePageState extends State<MyHomePage> {
           // center the children vertically; the main axis here is the vertical
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Text(
-              'You have pushed the button this many times:',
+              'Enter bill total',
+              style: GoogleFonts.montserrat(
+                textStyle: TextStyle(fontSize:20,color:kHeadingTextColor,)
+              )
+            ),
+            Row(
+              children: [
+                Text("\$",style: GoogleFonts.montserrat(
+                  textStyle: TextStyle(
+                    color:Color(0xFF188856),
+                  )
+                ) ),
+                Expanded(
+                  child: TextField(
+                  ),
+                ),
+              ],
+            ),
+            Text(
+                'Choose tip',
+                style: GoogleFonts.montserrat(
+                    textStyle: TextStyle(fontSize:20,color:kHeadingTextColor,)
+                )
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children:[
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    child: Text("15%"),
+                    decoration: BoxDecoration(
+                      color: Colors.purple,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+              ]
+            ),
+            Text(
+                'Split',
+                style: GoogleFonts.montserrat(
+                    textStyle: TextStyle(fontSize:20,color:kHeadingTextColor,)
+                )
             ),
             Text(
               '$_counter',
