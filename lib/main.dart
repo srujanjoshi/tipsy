@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tipsy/tip_bubble.dart';
 import 'constants.dart';
 
 void main() {
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.purple,
+        primarySwatch: Colors.grey,
       ),
       home: MyHomePage(title: 'Tipsy'),
     );
@@ -50,7 +51,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  //State Variables
   int _counter = 0;
+  int _tipAmount = 10;
 
   void _incrementCounter() {
     setState(() {
@@ -78,17 +81,17 @@ class _MyHomePageState extends State<MyHomePage> {
         //title: Text(widget.title),
         preferredSize: Size.fromHeight(100),
         child: ClipPath(
-          clipper: WaveClipperTwo(flip:true),
+          clipper: WaveClipperTwo(flip: true),
           child: Container(
             width: MediaQuery.of(context).size.width,
             color: kAppBarColor,
             child: Center(
-                child: Text(
-              "Tipsy",
-              style: GoogleFonts.berkshireSwash(
-                textStyle: TextStyle(fontSize: 30, color: kTipsyTextColor)
+              child: Text(
+                "Tipsy",
+                style: GoogleFonts.berkshireSwash(
+                    textStyle: TextStyle(fontSize: 30, color: kTipsyTextColor)),
               ),
-            ),),
+            ),
           ),
         ),
       ),
@@ -112,64 +115,259 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Text(
-              'Enter bill total',
-              style: GoogleFonts.montserrat(
-                textStyle: TextStyle(fontSize:20,color:kHeadingTextColor,)
-              )
-            ),
+            Text('Enter bill total',
+                style: GoogleFonts.montserrat(
+                    textStyle: TextStyle(
+                  fontSize: 20,
+                  color: kHeadingTextColor,
+                ))),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("\$",style: GoogleFonts.montserrat(
-                  textStyle: TextStyle(
-                    color:Color(0xFF188856),
-                  )
-                ) ),
-                Expanded(
+                Container(
+                  width: (MediaQuery.of(context).size.width) / 2,
                   child: TextField(
+                    style: TextStyle(
+                        color: kInputTextColor,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 35),
+                    keyboardType:
+                        TextInputType.numberWithOptions(decimal: true),
+                    decoration: InputDecoration(
+                      icon: Icon(FontAwesomeIcons.dollarSign,
+                          color: kDollarSignColor, size: 25),
+                      focusColor: kTextFieldUnderlineColor,
+                      border: UnderlineInputBorder(),
+                    ),
                   ),
                 ),
               ],
             ),
-            Text(
-                'Choose tip',
+            Text('Choose tip',
                 style: GoogleFonts.montserrat(
-                    textStyle: TextStyle(fontSize:20,color:kHeadingTextColor,)
-                )
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children:[
-                Expanded(
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    child: Text("15%"),
-                    decoration: BoxDecoration(
-                      color: Colors.purple,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
+                    textStyle: TextStyle(
+                  fontSize: 20,
+                  color: kHeadingTextColor,
+                ))),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+              Expanded(
+                child: TipAmountBubble(
+                  onTap: () {
+                    setState(() {
+                      if (_tipAmount == 10) {
+                        _tipAmount = 0;
+                      } else {
+                        _tipAmount = 10;
+                      }
+                    });
+                  },
+                  text: "10%",
+                  backgroundColor: (_tipAmount == 10)
+                      ? (kActiveTipAmountBubbleColor)
+                      : (kInactiveTipAmountBubbleColor),
+                  textColor: (_tipAmount == 10)
+                      ? (kActiveTipAmountTextColor)
+                      : (kInactiveTipAmountTextColor),
                 ),
-              ]
-            ),
-            Text(
-                'Split',
+              ),
+              Expanded(
+                child: TipAmountBubble(
+                  onTap: () {
+                    setState(() {
+                      if (_tipAmount == 15) {
+                        _tipAmount = 0;
+                      } else {
+                        _tipAmount = 15;
+                      }
+                    });
+                  },
+                  text: "15%",
+                  backgroundColor: (_tipAmount == 15)
+                      ? (kActiveTipAmountBubbleColor)
+                      : (kInactiveTipAmountBubbleColor),
+                  textColor: (_tipAmount == 15)
+                      ? (kActiveTipAmountTextColor)
+                      : (kInactiveTipAmountTextColor),
+                ),
+              ),
+              Expanded(
+                child: TipAmountBubble(
+                  onTap: () {
+                    setState(() {
+                      if (_tipAmount == 20) {
+                        _tipAmount = 0;
+                      } else {
+                        _tipAmount = 20;
+                      }
+                    });
+                  },
+                  text: "20%",
+                  backgroundColor: (_tipAmount == 20)
+                      ? (kActiveTipAmountBubbleColor)
+                      : (kInactiveTipAmountBubbleColor),
+                  textColor: (_tipAmount == 20)
+                      ? (kActiveTipAmountTextColor)
+                      : (kInactiveTipAmountTextColor),
+                ),
+              )
+            ]),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+              Expanded(
+                child: TipAmountBubble(
+                  onTap: () {
+                    setState(() {
+                      if (_tipAmount == 25) {
+                        _tipAmount = 0;
+                      } else {
+                        _tipAmount = 25;
+                      }
+                    });
+                  },
+                  text: "25%",
+                  backgroundColor: (_tipAmount == 25)
+                      ? (kActiveTipAmountBubbleColor)
+                      : (kInactiveTipAmountBubbleColor),
+                  textColor: (_tipAmount == 25)
+                      ? (kActiveTipAmountTextColor)
+                      : (kInactiveTipAmountTextColor),
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: TipAmountBubble(
+                  onTap: () {
+                    setState(() {
+                      if (_tipAmount == -1) {
+                        _tipAmount = 0;
+                      } else {
+                        _tipAmount = -1;
+                      }
+                    });
+                  },
+                  text: "Custom tip",
+                  backgroundColor: (!((_tipAmount == 0) ||
+                          (_tipAmount == 10) ||
+                          (_tipAmount == 15) ||
+                          (_tipAmount == 20) ||
+                          (_tipAmount == 25)))
+                      ? (kActiveTipAmountBubbleColor)
+                      : (kInactiveTipAmountBubbleColor),
+                  textColor: (!((_tipAmount == 0) ||
+                          (_tipAmount == 10) ||
+                          (_tipAmount == 15) ||
+                          (_tipAmount == 20) ||
+                          (_tipAmount == 25)))
+                      ? (kActiveTipAmountTextColor)
+                      : (kInactiveTipAmountTextColor),
+                ),
+              )
+            ]),
+            Text('Split',
                 style: GoogleFonts.montserrat(
-                    textStyle: TextStyle(fontSize:20,color:kHeadingTextColor,)
+                    textStyle: TextStyle(
+                  fontSize: 20,
+                  color: kHeadingTextColor,
+                ))),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                RoundIconButton(
+                  onPressed: () {
+                    setState(() {
+                      if (_counter > 0) {
+                        _counter -= 1;
+                      }
+                    });
+                  },
+                  icon: FontAwesomeIcons.minus,
+                ),
+                Text(
+                  '$_counter',
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+                RoundIconButton(
+                  onPressed: () {
+                    setState(() {
+                      if (_counter < 50) {
+                        _counter += 1;
+                      }
+                    });
+                  },
+                  icon: FontAwesomeIcons.plus,
                 )
+              ],
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            Expanded(
+              child: Container(
+                height: 20,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: kResultCardColor,
+                ),
+                padding: EdgeInsets.all(20),
+                margin: EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    Text("Total per person", style: GoogleFonts.montserrat(
+                        textStyle: TextStyle(
+                          fontSize: 20,
+                          color: kHeadingTextColor,
+                        ))),
+                    Text("\$45.05"),
+                    Row(
+                      children: [
+                        Column(
+                          children: [
+                            Text("bill", style:GoogleFonts.montserrat(
+                                textStyle: TextStyle(
+                                  fontSize: 20,
+                                  color: kHeadingTextColor,
+                                ))),
+                            Text("\$37.54"),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text("tip", style:GoogleFonts.montserrat(
+                                textStyle: TextStyle(
+                                  fontSize: 20,
+                                  color: kHeadingTextColor,
+                                ))),
+                            Text("\$7.51"),
+                          ],
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      backgroundColor:
+          kBackgroundColor, // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class RoundIconButton extends StatelessWidget {
+  RoundIconButton({@required this.onPressed, required this.icon});
+
+  final IconData icon;
+  final Function()? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      child: Icon(icon, color: kSplitTextColor),
+      onPressed: onPressed,
+      elevation: 0.0,
+      constraints: BoxConstraints.tightFor(
+        width: 30.0,
+        height: 50.0,
+      ),
+      shape: CircleBorder(),
     );
   }
 }
