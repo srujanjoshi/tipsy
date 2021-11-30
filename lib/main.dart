@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -52,18 +54,35 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   //State Variables
-  int _counter = 0;
+  int _split = 1;
   int _tipAmount = 10;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  double _totalPerPerson=0;
+  double _billPerPerson=0;
+  double _tipPerPerson=0;
+
+  final billTotalController= TextEditingController();
+  //
+  // @override
+  // void initState(){
+  //   super.initState();
+  //   //Start listening to changes
+  //   billTotalController.addListener(_updateResult);
+  // }
+
+  @override
+  void dispose(){
+    //Clean up controller when this widget is removed from the widget tree.
+    billTotalController.dispose();
+    super.dispose();
+  }
+
+  void _updateResult() {
+    print(double.parse(billTotalController.text));
+    double _billTotal= double.parse(billTotalController.text);
+    _billPerPerson= _billTotal/_split;
+    _tipPerPerson = _billPerPerson*(_tipAmount/100);
+    _totalPerPerson = _billPerPerson + _tipPerPerson;
   }
 
   @override
@@ -127,10 +146,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 Container(
                   width: (MediaQuery.of(context).size.width) / 2,
                   child: TextField(
-                    style: TextStyle(
-                        color: kInputTextColor,
-                        fontWeight: FontWeight.w800,
-                        fontSize: 35),
+                    onChanged: (s) {
+                      setState(() {
+                        _updateResult();
+                      });
+                    },
+                    controller: billTotalController,
+                    style: GoogleFonts.karla(
+                        textStyle: TextStyle(
+                          fontSize: 35,
+                          color: kInputTextColor,
+                          fontWeight: FontWeight.w800,
+                        )),
                     keyboardType:
                         TextInputType.numberWithOptions(decimal: true),
                     decoration: InputDecoration(
@@ -159,6 +186,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       } else {
                         _tipAmount = 10;
                       }
+                      _updateResult();
                     });
                   },
                   text: "10%",
@@ -179,6 +207,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       } else {
                         _tipAmount = 15;
                       }
+                      _updateResult();
                     });
                   },
                   text: "15%",
@@ -199,6 +228,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       } else {
                         _tipAmount = 20;
                       }
+                      _updateResult();
                     });
                   },
                   text: "20%",
@@ -221,6 +251,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       } else {
                         _tipAmount = 25;
                       }
+                      _updateResult();
                     });
                   },
                   text: "25%",
@@ -274,23 +305,25 @@ class _MyHomePageState extends State<MyHomePage> {
                 RoundIconButton(
                   onPressed: () {
                     setState(() {
-                      if (_counter > 0) {
-                        _counter -= 1;
+                      if (_split > 1) {
+                        _split -= 1;
                       }
+                      _updateResult();
                     });
                   },
                   icon: FontAwesomeIcons.minus,
                 ),
                 Text(
-                  '$_counter',
+                  '$_split',
                   style: Theme.of(context).textTheme.headline4,
                 ),
                 RoundIconButton(
                   onPressed: () {
                     setState(() {
-                      if (_counter < 50) {
-                        _counter += 1;
+                      if (_split < 50) {
+                        _split += 1;
                       }
+                      _updateResult();
                     });
                   },
                   icon: FontAwesomeIcons.plus,
@@ -311,19 +344,30 @@ class _MyHomePageState extends State<MyHomePage> {
                     Text("Total per person", style: GoogleFonts.montserrat(
                         textStyle: TextStyle(
                           fontSize: 20,
-                          color: kHeadingTextColor,
+                          color: kResultCardTextColor,
                         ))),
-                    Text("\$45.05"),
+                    Text(_totalPerPerson.toStringAsFixed(2), style: GoogleFonts.karla(
+                        textStyle: TextStyle(
+                          fontSize: 45,
+                          color: kInputTextColor,
+                          fontWeight: FontWeight.w800,
+                        ))),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Column(
                           children: [
                             Text("bill", style:GoogleFonts.montserrat(
                                 textStyle: TextStyle(
                                   fontSize: 20,
-                                  color: kHeadingTextColor,
+                                  color: kResultCardTextColor,
                                 ))),
-                            Text("\$37.54"),
+                            Text(_billPerPerson.toStringAsFixed(2),style: GoogleFonts.karla(
+                                textStyle: TextStyle(
+                                  fontSize: 25,
+                                  color: kInputTextColor,
+                                  fontWeight: FontWeight.w800,
+                                ))),
                           ],
                         ),
                         Column(
@@ -331,9 +375,14 @@ class _MyHomePageState extends State<MyHomePage> {
                             Text("tip", style:GoogleFonts.montserrat(
                                 textStyle: TextStyle(
                                   fontSize: 20,
-                                  color: kHeadingTextColor,
+                                  color: kResultCardTextColor,
                                 ))),
-                            Text("\$7.51"),
+                            Text(_tipPerPerson.toStringAsFixed(2), style: GoogleFonts.karla(
+                                textStyle: TextStyle(
+                                  fontSize: 25,
+                                  color: kInputTextColor,
+                                  fontWeight: FontWeight.w800,
+                                ))),
                           ],
                         )
                       ],
