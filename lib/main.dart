@@ -143,8 +143,14 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Text("\$", style: GoogleFonts.karla(
+                    textStyle: TextStyle(
+                      fontSize: 30,
+                      color: kDollarSignColor,
+                    ))),
                 Container(
-                  width: (MediaQuery.of(context).size.width) / 2,
+                  width: (MediaQuery.of(context).size.width) / 3,
+                  margin: EdgeInsets.symmetric(vertical: 0,horizontal: 5),
                   child: TextField(
                     onChanged: (s) {
                       setState(() {
@@ -161,8 +167,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     keyboardType:
                         TextInputType.numberWithOptions(decimal: true),
                     decoration: InputDecoration(
-                      icon: Icon(FontAwesomeIcons.dollarSign,
-                          color: kDollarSignColor, size: 25),
                       focusColor: kTextFieldUnderlineColor,
                       border: UnderlineInputBorder(),
                     ),
@@ -346,9 +350,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           fontSize: 20,
                           color: kResultCardTextColor,
                         ))),
-                    Text(_totalPerPerson.toStringAsFixed(2), style: GoogleFonts.karla(
+                    Text("\$"+_totalPerPerson.toStringAsFixed(2), style: GoogleFonts.karla(
                         textStyle: TextStyle(
-                          fontSize: 45,
+                          fontSize: 65,
                           color: kInputTextColor,
                           fontWeight: FontWeight.w800,
                         ))),
@@ -362,7 +366,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   fontSize: 20,
                                   color: kResultCardTextColor,
                                 ))),
-                            Text(_billPerPerson.toStringAsFixed(2),style: GoogleFonts.karla(
+                            Text("\$"+_billPerPerson.toStringAsFixed(2),style: GoogleFonts.karla(
                                 textStyle: TextStyle(
                                   fontSize: 25,
                                   color: kInputTextColor,
@@ -377,7 +381,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   fontSize: 20,
                                   color: kResultCardTextColor,
                                 ))),
-                            Text(_tipPerPerson.toStringAsFixed(2), style: GoogleFonts.karla(
+                            Text("\$"+_tipPerPerson.toStringAsFixed(2), style: GoogleFonts.karla(
                                 textStyle: TextStyle(
                                   fontSize: 25,
                                   color: kInputTextColor,
