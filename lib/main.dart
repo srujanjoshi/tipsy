@@ -139,14 +139,18 @@ class _MyHomePageState extends State<MyHomePage> {
               flex: 2,
               child: Container(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Enter bill total',
-                        textAlign: TextAlign.end,
-                        style: GoogleFonts.montserrat(
-                            textStyle: TextStyle(
-                          fontSize: 20,
-                          color: kHeadingTextColor,
-                        ))),
+                    Container(
+                      margin:EdgeInsets.fromLTRB(80, 0, 0, 0),
+                      child: Text('Enter bill total',
+                          textAlign: TextAlign.end,
+                          style: GoogleFonts.montserrat(
+                              textStyle: TextStyle(
+                            fontSize: 20,
+                            color: kHeadingTextColor,
+                          ))),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -191,134 +195,146 @@ class _MyHomePageState extends State<MyHomePage> {
               flex: 3,
               child: Container(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Choose tip',
-                        style: GoogleFonts.montserrat(
-                            textStyle: TextStyle(
-                          fontSize: 20,
-                          color: kHeadingTextColor,
-                        ))),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    Container(
+                      margin: EdgeInsets.fromLTRB(80, 0, 0, 0),
+                      child: Text('Choose tip',
+                          style: GoogleFonts.montserrat(
+                              textStyle: TextStyle(
+                            fontSize: 20,
+                            color: kHeadingTextColor,
+                          ))),
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 0,horizontal: 70),
+                      child: Column(
                         children: [
-                          Expanded(
-                            child: TipAmountBubble(
-                              onTap: () {
-                                setState(() {
-                                  if (_tipAmount == 10) {
-                                    _tipAmount = 0;
-                                  } else {
-                                    _tipAmount = 10;
-                                  }
-                                  _updateResult();
-                                });
-                              },
-                              text: "10%",
-                              backgroundColor: (_tipAmount == 10)
-                                  ? (kActiveTipAmountBubbleColor)
-                                  : (kInactiveTipAmountBubbleColor),
-                              textColor: (_tipAmount == 10)
-                                  ? (kActiveTipAmountTextColor)
-                                  : (kInactiveTipAmountTextColor),
-                            ),
-                          ),
-                          Expanded(
-                            child: TipAmountBubble(
-                              onTap: () {
-                                setState(() {
-                                  if (_tipAmount == 15) {
-                                    _tipAmount = 0;
-                                  } else {
-                                    _tipAmount = 15;
-                                  }
-                                  _updateResult();
-                                });
-                              },
-                              text: "15%",
-                              backgroundColor: (_tipAmount == 15)
-                                  ? (kActiveTipAmountBubbleColor)
-                                  : (kInactiveTipAmountBubbleColor),
-                              textColor: (_tipAmount == 15)
-                                  ? (kActiveTipAmountTextColor)
-                                  : (kInactiveTipAmountTextColor),
-                            ),
-                          ),
-                          Expanded(
-                            child: TipAmountBubble(
-                              onTap: () {
-                                setState(() {
-                                  if (_tipAmount == 20) {
-                                    _tipAmount = 0;
-                                  } else {
-                                    _tipAmount = 20;
-                                  }
-                                  _updateResult();
-                                });
-                              },
-                              text: "20%",
-                              backgroundColor: (_tipAmount == 20)
-                                  ? (kActiveTipAmountBubbleColor)
-                                  : (kInactiveTipAmountBubbleColor),
-                              textColor: (_tipAmount == 20)
-                                  ? (kActiveTipAmountTextColor)
-                                  : (kInactiveTipAmountTextColor),
-                            ),
-                          )
-                        ]),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Expanded(
-                            child: TipAmountBubble(
-                              onTap: () {
-                                setState(() {
-                                  if (_tipAmount == 25) {
-                                    _tipAmount = 0;
-                                  } else {
-                                    _tipAmount = 25;
-                                  }
-                                  _updateResult();
-                                });
-                              },
-                              text: "25%",
-                              backgroundColor: (_tipAmount == 25)
-                                  ? (kActiveTipAmountBubbleColor)
-                                  : (kInactiveTipAmountBubbleColor),
-                              textColor: (_tipAmount == 25)
-                                  ? (kActiveTipAmountTextColor)
-                                  : (kInactiveTipAmountTextColor),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: TipAmountBubble(
-                              onTap: () {
-                                setState(() {
-                                  if (_tipAmount == -1) {
-                                    _tipAmount = 0;
-                                  } else {
-                                    _tipAmount = -1;
-                                  }
-                                });
-                              },
-                              text: "Custom tip",
-                              backgroundColor: (!((_tipAmount == 0) ||
-                                      (_tipAmount == 10) ||
-                                      (_tipAmount == 15) ||
-                                      (_tipAmount == 20) ||
-                                      (_tipAmount == 25)))
-                                  ? (kActiveTipAmountBubbleColor)
-                                  : (kInactiveTipAmountBubbleColor),
-                              textColor: (!((_tipAmount == 0) ||
-                                      (_tipAmount == 10) ||
-                                      (_tipAmount == 15) ||
-                                      (_tipAmount == 20) ||
-                                      (_tipAmount == 25)))
-                                  ? (kActiveTipAmountTextColor)
-                                  : (kInactiveTipAmountTextColor),
-                            ),
-                          )
-                        ]),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Expanded(
+                                  child: TipAmountBubble(
+                                    onTap: () {
+                                      setState(() {
+                                        if (_tipAmount == 10) {
+                                          _tipAmount = 0;
+                                        } else {
+                                          _tipAmount = 10;
+                                        }
+                                        _updateResult();
+                                      });
+                                    },
+                                    text: "10%",
+                                    backgroundColor: (_tipAmount == 10)
+                                        ? (kActiveTipAmountBubbleColor)
+                                        : (kInactiveTipAmountBubbleColor),
+                                    textColor: (_tipAmount == 10)
+                                        ? (kActiveTipAmountTextColor)
+                                        : (kInactiveTipAmountTextColor),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: TipAmountBubble(
+                                    onTap: () {
+                                      setState(() {
+                                        if (_tipAmount == 15) {
+                                          _tipAmount = 0;
+                                        } else {
+                                          _tipAmount = 15;
+                                        }
+                                        _updateResult();
+                                      });
+                                    },
+                                    text: "15%",
+                                    backgroundColor: (_tipAmount == 15)
+                                        ? (kActiveTipAmountBubbleColor)
+                                        : (kInactiveTipAmountBubbleColor),
+                                    textColor: (_tipAmount == 15)
+                                        ? (kActiveTipAmountTextColor)
+                                        : (kInactiveTipAmountTextColor),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: TipAmountBubble(
+                                    onTap: () {
+                                      setState(() {
+                                        if (_tipAmount == 20) {
+                                          _tipAmount = 0;
+                                        } else {
+                                          _tipAmount = 20;
+                                        }
+                                        _updateResult();
+                                      });
+                                    },
+                                    text: "20%",
+                                    backgroundColor: (_tipAmount == 20)
+                                        ? (kActiveTipAmountBubbleColor)
+                                        : (kInactiveTipAmountBubbleColor),
+                                    textColor: (_tipAmount == 20)
+                                        ? (kActiveTipAmountTextColor)
+                                        : (kInactiveTipAmountTextColor),
+                                  ),
+                                )
+                              ]),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Expanded(
+                                  child: TipAmountBubble(
+                                    onTap: () {
+                                      setState(() {
+                                        if (_tipAmount == 25) {
+                                          _tipAmount = 0;
+                                        } else {
+                                          _tipAmount = 25;
+                                        }
+                                        _updateResult();
+                                      });
+                                    },
+                                    text: "25%",
+                                    backgroundColor: (_tipAmount == 25)
+                                        ? (kActiveTipAmountBubbleColor)
+                                        : (kInactiveTipAmountBubbleColor),
+                                    textColor: (_tipAmount == 25)
+                                        ? (kActiveTipAmountTextColor)
+                                        : (kInactiveTipAmountTextColor),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: TipAmountBubble(
+                                    onTap: () {
+                                      setState(() {
+                                        if (_tipAmount == -1) {
+                                          _tipAmount = 0;
+                                        } else {
+                                          _tipAmount = -1;
+                                        }
+                                      });
+                                    },
+                                    text: "Custom tip",
+                                    backgroundColor: (!((_tipAmount == 0) ||
+                                        (_tipAmount == 10) ||
+                                        (_tipAmount == 15) ||
+                                        (_tipAmount == 20) ||
+                                        (_tipAmount == 25)))
+                                        ? (kActiveTipAmountBubbleColor)
+                                        : (kInactiveTipAmountBubbleColor),
+                                    textColor: (!((_tipAmount == 0) ||
+                                        (_tipAmount == 10) ||
+                                        (_tipAmount == 15) ||
+                                        (_tipAmount == 20) ||
+                                        (_tipAmount == 25)))
+                                        ? (kActiveTipAmountTextColor)
+                                        : (kInactiveTipAmountTextColor),
+                                  ),
+                                )
+                              ]),
+                        ],
+                      ),
+                    ),
+
                   ],
                 ),
               ),
@@ -327,13 +343,17 @@ class _MyHomePageState extends State<MyHomePage> {
               flex: 2,
               child: Container(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Split',
-                        style: GoogleFonts.montserrat(
-                            textStyle: TextStyle(
-                          fontSize: 20,
-                          color: kHeadingTextColor,
-                        ))),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(80, 0, 0, 0),
+                      child: Text('Split',
+                          style: GoogleFonts.montserrat(
+                              textStyle: TextStyle(
+                            fontSize: 20,
+                            color: kHeadingTextColor,
+                          ))),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
