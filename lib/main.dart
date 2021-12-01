@@ -57,11 +57,12 @@ class _MyHomePageState extends State<MyHomePage> {
   int _split = 1;
   int _tipAmount = 10;
 
-  double _totalPerPerson=0;
-  double _billPerPerson=0;
-  double _tipPerPerson=0;
+  double _totalPerPerson = 0;
+  double _billPerPerson = 0;
+  double _tipPerPerson = 0;
 
-  final billTotalController= TextEditingController();
+  final billTotalController = TextEditingController();
+
   //
   // @override
   // void initState(){
@@ -71,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // }
 
   @override
-  void dispose(){
+  void dispose() {
     //Clean up controller when this widget is removed from the widget tree.
     billTotalController.dispose();
     super.dispose();
@@ -79,9 +80,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _updateResult() {
     print(double.parse(billTotalController.text));
-    double _billTotal= double.parse(billTotalController.text);
-    _billPerPerson= _billTotal/_split;
-    _tipPerPerson = _billPerPerson*(_tipAmount/100);
+    double _billTotal = double.parse(billTotalController.text);
+    _billPerPerson = _billTotal / _split;
+    _tipPerPerson = _billPerPerson * (_tipAmount / 100);
     _totalPerPerson = _billPerPerson + _tipPerPerson;
   }
 
@@ -134,207 +135,242 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Text('Enter bill total',
-                style: GoogleFonts.montserrat(
-                    textStyle: TextStyle(
-                  fontSize: 20,
-                  color: kHeadingTextColor,
-                ))),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("\$", style: GoogleFonts.karla(
-                    textStyle: TextStyle(
-                      fontSize: 30,
-                      color: kDollarSignColor,
-                    ))),
-                Container(
-                  width: (MediaQuery.of(context).size.width) / 3,
-                  margin: EdgeInsets.symmetric(vertical: 0,horizontal: 5),
-                  child: TextField(
-                    onChanged: (s) {
-                      setState(() {
-                        _updateResult();
-                      });
-                    },
-                    controller: billTotalController,
-                    style: GoogleFonts.karla(
-                        textStyle: TextStyle(
-                          fontSize: 35,
-                          color: kInputTextColor,
-                          fontWeight: FontWeight.w800,
-                        )),
-                    keyboardType:
-                        TextInputType.numberWithOptions(decimal: true),
-                    decoration: InputDecoration(
-                      focusColor: kTextFieldUnderlineColor,
-                      border: UnderlineInputBorder(),
+            Expanded(
+              flex: 2,
+              child: Container(
+                child: Column(
+                  children: [
+                    Text('Enter bill total',
+                        textAlign: TextAlign.end,
+                        style: GoogleFonts.montserrat(
+                            textStyle: TextStyle(
+                          fontSize: 20,
+                          color: kHeadingTextColor,
+                        ))),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("\$",
+                            style: GoogleFonts.karla(
+                                textStyle: TextStyle(
+                              fontSize: 30,
+                              color: kDollarSignColor,
+                            ))),
+                        Container(
+                          width: (MediaQuery.of(context).size.width) *(1/3),
+                          margin:
+                              EdgeInsets.symmetric(vertical: 0, horizontal: 5),
+                          child: TextField(
+                            onChanged: (s) {
+                              setState(() {
+                                _updateResult();
+                              });
+                            },
+                            controller: billTotalController,
+                            style: GoogleFonts.karla(
+                                textStyle: TextStyle(
+                              fontSize: 35,
+                              color: kInputTextColor,
+                              fontWeight: FontWeight.w800,
+                            )),
+                            keyboardType:
+                                TextInputType.numberWithOptions(decimal: true),
+                            decoration: InputDecoration(
+                              focusColor: kTextFieldUnderlineColor,
+                              border: UnderlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ),
-              ],
-            ),
-            Text('Choose tip',
-                style: GoogleFonts.montserrat(
-                    textStyle: TextStyle(
-                  fontSize: 20,
-                  color: kHeadingTextColor,
-                ))),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              Expanded(
-                child: TipAmountBubble(
-                  onTap: () {
-                    setState(() {
-                      if (_tipAmount == 10) {
-                        _tipAmount = 0;
-                      } else {
-                        _tipAmount = 10;
-                      }
-                      _updateResult();
-                    });
-                  },
-                  text: "10%",
-                  backgroundColor: (_tipAmount == 10)
-                      ? (kActiveTipAmountBubbleColor)
-                      : (kInactiveTipAmountBubbleColor),
-                  textColor: (_tipAmount == 10)
-                      ? (kActiveTipAmountTextColor)
-                      : (kInactiveTipAmountTextColor),
+                  ],
                 ),
               ),
-              Expanded(
-                child: TipAmountBubble(
-                  onTap: () {
-                    setState(() {
-                      if (_tipAmount == 15) {
-                        _tipAmount = 0;
-                      } else {
-                        _tipAmount = 15;
-                      }
-                      _updateResult();
-                    });
-                  },
-                  text: "15%",
-                  backgroundColor: (_tipAmount == 15)
-                      ? (kActiveTipAmountBubbleColor)
-                      : (kInactiveTipAmountBubbleColor),
-                  textColor: (_tipAmount == 15)
-                      ? (kActiveTipAmountTextColor)
-                      : (kInactiveTipAmountTextColor),
-                ),
-              ),
-              Expanded(
-                child: TipAmountBubble(
-                  onTap: () {
-                    setState(() {
-                      if (_tipAmount == 20) {
-                        _tipAmount = 0;
-                      } else {
-                        _tipAmount = 20;
-                      }
-                      _updateResult();
-                    });
-                  },
-                  text: "20%",
-                  backgroundColor: (_tipAmount == 20)
-                      ? (kActiveTipAmountBubbleColor)
-                      : (kInactiveTipAmountBubbleColor),
-                  textColor: (_tipAmount == 20)
-                      ? (kActiveTipAmountTextColor)
-                      : (kInactiveTipAmountTextColor),
-                ),
-              )
-            ]),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              Expanded(
-                child: TipAmountBubble(
-                  onTap: () {
-                    setState(() {
-                      if (_tipAmount == 25) {
-                        _tipAmount = 0;
-                      } else {
-                        _tipAmount = 25;
-                      }
-                      _updateResult();
-                    });
-                  },
-                  text: "25%",
-                  backgroundColor: (_tipAmount == 25)
-                      ? (kActiveTipAmountBubbleColor)
-                      : (kInactiveTipAmountBubbleColor),
-                  textColor: (_tipAmount == 25)
-                      ? (kActiveTipAmountTextColor)
-                      : (kInactiveTipAmountTextColor),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: TipAmountBubble(
-                  onTap: () {
-                    setState(() {
-                      if (_tipAmount == -1) {
-                        _tipAmount = 0;
-                      } else {
-                        _tipAmount = -1;
-                      }
-                    });
-                  },
-                  text: "Custom tip",
-                  backgroundColor: (!((_tipAmount == 0) ||
-                          (_tipAmount == 10) ||
-                          (_tipAmount == 15) ||
-                          (_tipAmount == 20) ||
-                          (_tipAmount == 25)))
-                      ? (kActiveTipAmountBubbleColor)
-                      : (kInactiveTipAmountBubbleColor),
-                  textColor: (!((_tipAmount == 0) ||
-                          (_tipAmount == 10) ||
-                          (_tipAmount == 15) ||
-                          (_tipAmount == 20) ||
-                          (_tipAmount == 25)))
-                      ? (kActiveTipAmountTextColor)
-                      : (kInactiveTipAmountTextColor),
-                ),
-              )
-            ]),
-            Text('Split',
-                style: GoogleFonts.montserrat(
-                    textStyle: TextStyle(
-                  fontSize: 20,
-                  color: kHeadingTextColor,
-                ))),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                RoundIconButton(
-                  onPressed: () {
-                    setState(() {
-                      if (_split > 1) {
-                        _split -= 1;
-                      }
-                      _updateResult();
-                    });
-                  },
-                  icon: FontAwesomeIcons.minus,
-                ),
-                Text(
-                  '$_split',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-                RoundIconButton(
-                  onPressed: () {
-                    setState(() {
-                      if (_split < 50) {
-                        _split += 1;
-                      }
-                      _updateResult();
-                    });
-                  },
-                  icon: FontAwesomeIcons.plus,
-                )
-              ],
             ),
             Expanded(
+              flex: 3,
+              child: Container(
+                child: Column(
+                  children: [
+                    Text('Choose tip',
+                        style: GoogleFonts.montserrat(
+                            textStyle: TextStyle(
+                          fontSize: 20,
+                          color: kHeadingTextColor,
+                        ))),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Expanded(
+                            child: TipAmountBubble(
+                              onTap: () {
+                                setState(() {
+                                  if (_tipAmount == 10) {
+                                    _tipAmount = 0;
+                                  } else {
+                                    _tipAmount = 10;
+                                  }
+                                  _updateResult();
+                                });
+                              },
+                              text: "10%",
+                              backgroundColor: (_tipAmount == 10)
+                                  ? (kActiveTipAmountBubbleColor)
+                                  : (kInactiveTipAmountBubbleColor),
+                              textColor: (_tipAmount == 10)
+                                  ? (kActiveTipAmountTextColor)
+                                  : (kInactiveTipAmountTextColor),
+                            ),
+                          ),
+                          Expanded(
+                            child: TipAmountBubble(
+                              onTap: () {
+                                setState(() {
+                                  if (_tipAmount == 15) {
+                                    _tipAmount = 0;
+                                  } else {
+                                    _tipAmount = 15;
+                                  }
+                                  _updateResult();
+                                });
+                              },
+                              text: "15%",
+                              backgroundColor: (_tipAmount == 15)
+                                  ? (kActiveTipAmountBubbleColor)
+                                  : (kInactiveTipAmountBubbleColor),
+                              textColor: (_tipAmount == 15)
+                                  ? (kActiveTipAmountTextColor)
+                                  : (kInactiveTipAmountTextColor),
+                            ),
+                          ),
+                          Expanded(
+                            child: TipAmountBubble(
+                              onTap: () {
+                                setState(() {
+                                  if (_tipAmount == 20) {
+                                    _tipAmount = 0;
+                                  } else {
+                                    _tipAmount = 20;
+                                  }
+                                  _updateResult();
+                                });
+                              },
+                              text: "20%",
+                              backgroundColor: (_tipAmount == 20)
+                                  ? (kActiveTipAmountBubbleColor)
+                                  : (kInactiveTipAmountBubbleColor),
+                              textColor: (_tipAmount == 20)
+                                  ? (kActiveTipAmountTextColor)
+                                  : (kInactiveTipAmountTextColor),
+                            ),
+                          )
+                        ]),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Expanded(
+                            child: TipAmountBubble(
+                              onTap: () {
+                                setState(() {
+                                  if (_tipAmount == 25) {
+                                    _tipAmount = 0;
+                                  } else {
+                                    _tipAmount = 25;
+                                  }
+                                  _updateResult();
+                                });
+                              },
+                              text: "25%",
+                              backgroundColor: (_tipAmount == 25)
+                                  ? (kActiveTipAmountBubbleColor)
+                                  : (kInactiveTipAmountBubbleColor),
+                              textColor: (_tipAmount == 25)
+                                  ? (kActiveTipAmountTextColor)
+                                  : (kInactiveTipAmountTextColor),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: TipAmountBubble(
+                              onTap: () {
+                                setState(() {
+                                  if (_tipAmount == -1) {
+                                    _tipAmount = 0;
+                                  } else {
+                                    _tipAmount = -1;
+                                  }
+                                });
+                              },
+                              text: "Custom tip",
+                              backgroundColor: (!((_tipAmount == 0) ||
+                                      (_tipAmount == 10) ||
+                                      (_tipAmount == 15) ||
+                                      (_tipAmount == 20) ||
+                                      (_tipAmount == 25)))
+                                  ? (kActiveTipAmountBubbleColor)
+                                  : (kInactiveTipAmountBubbleColor),
+                              textColor: (!((_tipAmount == 0) ||
+                                      (_tipAmount == 10) ||
+                                      (_tipAmount == 15) ||
+                                      (_tipAmount == 20) ||
+                                      (_tipAmount == 25)))
+                                  ? (kActiveTipAmountTextColor)
+                                  : (kInactiveTipAmountTextColor),
+                            ),
+                          )
+                        ]),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Container(
+                child: Column(
+                  children: [
+                    Text('Split',
+                        style: GoogleFonts.montserrat(
+                            textStyle: TextStyle(
+                          fontSize: 20,
+                          color: kHeadingTextColor,
+                        ))),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        RoundIconButton(
+                          onPressed: () {
+                            setState(() {
+                              if (_split > 1) {
+                                _split -= 1;
+                              }
+                              _updateResult();
+                            });
+                          },
+                          icon: FontAwesomeIcons.minus,
+                        ),
+                        Text(
+                          '$_split',
+                          style: Theme.of(context).textTheme.headline4,
+                        ),
+                        RoundIconButton(
+                          onPressed: () {
+                            setState(() {
+                              if (_split < 50) {
+                                _split += 1;
+                              }
+                              _updateResult();
+                            });
+                          },
+                          icon: FontAwesomeIcons.plus,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 6,
               child: Container(
                 height: 20,
                 decoration: BoxDecoration(
@@ -344,30 +380,39 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.all(20),
                 margin: EdgeInsets.all(20),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text("Total per person", style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                          fontSize: 20,
-                          color: kResultCardTextColor,
-                        ))),
-                    Text("\$"+_totalPerPerson.toStringAsFixed(2), style: GoogleFonts.karla(
-                        textStyle: TextStyle(
-                          fontSize: 65,
-                          color: kInputTextColor,
-                          fontWeight: FontWeight.w800,
-                        ))),
+                    Column(
+                      children: [
+                        Text("Total per person",
+                            style: GoogleFonts.montserrat(
+                                textStyle: TextStyle(
+                              fontSize: 20,
+                              color: kResultCardTextColor,
+                            ))),
+                        Text("\$" + _totalPerPerson.toStringAsFixed(2),
+                            style: GoogleFonts.karla(
+                                textStyle: TextStyle(
+                              fontSize: 65,
+                              color: kInputTextColor,
+                              fontWeight: FontWeight.w800,
+                            ))),
+                      ],
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Column(
                           children: [
-                            Text("bill", style:GoogleFonts.montserrat(
-                                textStyle: TextStyle(
+                            Text("bill",
+                                style: GoogleFonts.montserrat(
+                                    textStyle: TextStyle(
                                   fontSize: 20,
                                   color: kResultCardTextColor,
                                 ))),
-                            Text("\$"+_billPerPerson.toStringAsFixed(2),style: GoogleFonts.karla(
-                                textStyle: TextStyle(
+                            Text("\$" + _billPerPerson.toStringAsFixed(2),
+                                style: GoogleFonts.karla(
+                                    textStyle: TextStyle(
                                   fontSize: 25,
                                   color: kInputTextColor,
                                   fontWeight: FontWeight.w800,
@@ -376,13 +421,15 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         Column(
                           children: [
-                            Text("tip", style:GoogleFonts.montserrat(
-                                textStyle: TextStyle(
+                            Text("tip",
+                                style: GoogleFonts.montserrat(
+                                    textStyle: TextStyle(
                                   fontSize: 20,
                                   color: kResultCardTextColor,
                                 ))),
-                            Text("\$"+_tipPerPerson.toStringAsFixed(2), style: GoogleFonts.karla(
-                                textStyle: TextStyle(
+                            Text("\$" + _tipPerPerson.toStringAsFixed(2),
+                                style: GoogleFonts.karla(
+                                    textStyle: TextStyle(
                                   fontSize: 25,
                                   color: kInputTextColor,
                                   fontWeight: FontWeight.w800,
