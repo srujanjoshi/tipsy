@@ -26,12 +26,12 @@ class TipAmountBubble extends StatelessWidget {
         decoration: BoxDecoration(
           color: this.backgroundColor,
           borderRadius: BorderRadius.circular(20),
-          // boxShadow: [BoxShadow(
-          //   color:kInactiveTipAmountTextColor,
-          //   spreadRadius: 1,
-          //   blurRadius: 3,
-          //   offset:Offset(0,1),
-          // )],
+          boxShadow: [BoxShadow(
+            color:kAppBarColor,
+            spreadRadius: 1,
+            blurRadius: 5,
+            offset:Offset(1,3),
+          )],
         ),
       ),
     );
