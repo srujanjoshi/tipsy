@@ -78,12 +78,28 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
+  bool isNumeric(String? s){
+    if(s==null){
+      return false;
+    }
+    return double.tryParse(s)!=null;
+  }
+  bool isPositive(String s){
+    if (double.parse(s)>=0){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
   void _updateResult() {
-    print(double.parse(billTotalController.text));
-    double _billTotal = double.parse(billTotalController.text);
-    _billPerPerson = _billTotal / _split;
-    _tipPerPerson = _billPerPerson * (_tipAmount / 100);
-    _totalPerPerson = _billPerPerson + _tipPerPerson;
+    if(isNumeric(billTotalController.text) && isPositive(billTotalController.text)) {
+      print(double.parse(billTotalController.text));
+      double _billTotal = double.parse(billTotalController.text);
+      _billPerPerson = _billTotal / _split;
+      _tipPerPerson = _billPerPerson * (_tipAmount / 100);
+      _totalPerPerson = _billPerPerson + _tipPerPerson;
+    }
   }
 
   @override
@@ -196,7 +212,7 @@ class _MyHomePageState extends State<MyHomePage> {
               flex: 3,
               child: Container(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                 crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       margin: EdgeInsets.fromLTRB(80, 0, 0, 0),
