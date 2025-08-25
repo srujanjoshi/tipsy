@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tipsy/tip_bubble.dart';
 import 'constants.dart';
+import 'theme_manager.dart';
 
 void main() {
   runApp(MyApp());
@@ -56,6 +57,9 @@ class _MyHomePageState extends State<MyHomePage> {
   //State Variables
   int _split = 1;
   int _tipAmount = 10;
+  
+  // Theme state management
+  ThemeMode _currentTheme = ThemeMode.light;
 
   double _totalPerPerson = 0;
   double _billPerPerson = 0;
