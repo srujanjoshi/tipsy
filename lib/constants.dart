@@ -1,24 +1,43 @@
 import 'dart:ui';
-
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tipsy/theme_manager.dart';
 
-const Color kAppBarColor = Color(0xFFCEF5E6);
-const Color kTipsyTextColor = Color(0xFF074e2f);
-const Color kBackgroundColor = Color(0xFFf8fffd);
-const Color kHeadingTextColor = Color(0xFF9b9c9c);
-const Color kDollarSignColor = Color(0xFF188856);
-const Color kInputTextColor = Color(0xFF0d8a52);
-const Color kTextFieldUnderlineColor = Color(0xFFc1c3c3);
-const Color kInactiveTipAmountTextColor = Color(0xFF479473);
-const Color kActiveTipAmountTextColor = Color(0xFFebfffd);
-const Color kActiveTipAmountBubbleColor = Color(0xFF16A464);
-const Color kInactiveTipAmountBubbleColor = Color(0xFFFFFFFF);
-const Color kSplitTextColor = Color(0xFF0D8A52);
-const Color kResultCardColor = Color(0xFFCEF5E6);
-const Color kResultCardTextColor = Color(0xFF9AA5A0);
-const Color kResultCardAmountTextColor = Color(0xFF0c8a52);
+// Global variable to hold current color scheme
+// This will be updated when theme changes
+AppColorScheme currentColorScheme = ThemeManager.lightColorScheme;
 
-TextStyle kInputTextStyle =
-    TextStyle(color: Color(0xFF0d8a52), fontWeight: FontWeight.w700);
+// Dynamic color getters that use current color scheme
+Color get kAppBarColor => currentColorScheme.appBarColor;
+Color get kTipsyTextColor => currentColorScheme.tipsyTextColor;
+Color get kBackgroundColor => currentColorScheme.backgroundColor;
+Color get kHeadingTextColor => currentColorScheme.headingTextColor;
+Color get kDollarSignColor => currentColorScheme.dollarSignColor;
+Color get kInputTextColor => currentColorScheme.inputTextColor;
+Color get kTextFieldUnderlineColor => currentColorScheme.textFieldUnderlineColor;
+Color get kInactiveTipAmountTextColor => currentColorScheme.inactiveTipAmountTextColor;
+Color get kActiveTipAmountTextColor => currentColorScheme.activeTipAmountTextColor;
+Color get kActiveTipAmountBubbleColor => currentColorScheme.activeTipAmountBubbleColor;
+Color get kInactiveTipAmountBubbleColor => currentColorScheme.inactiveTipAmountBubbleColor;
+Color get kSplitTextColor => currentColorScheme.splitTextColor;
+Color get kResultCardColor => currentColorScheme.resultCardColor;
+Color get kResultCardTextColor => currentColorScheme.resultCardTextColor;
+Color get kResultCardAmountTextColor => currentColorScheme.resultCardAmountTextColor;
+
+// Dynamic text style that uses current color scheme
+TextStyle get kInputTextStyle => TextStyle(
+  color: currentColorScheme.inputTextColor,
+  fontWeight: FontWeight.w700
+);
+
+// Helper function to update the current color scheme
+// This will be called when the theme changes
+void updateColorScheme(AppColorScheme newColorScheme) {
+  currentColorScheme = newColorScheme;
+}
+
+// Helper function to update color scheme based on theme mode
+void updateTheme(ThemeMode themeMode) {
+  currentColorScheme = ThemeManager.getColorScheme(themeMode);
+}
 
 

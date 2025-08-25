@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tipsy/tip_bubble.dart';
 import 'constants.dart';
+import 'theme_manager.dart';
 
 void main() {
   runApp(MyApp());
@@ -56,12 +57,40 @@ class _MyHomePageState extends State<MyHomePage> {
   //State Variables
   int _split = 1;
   int _tipAmount = 10;
+  
+  // Theme state management
+  ThemeMode _currentTheme = ThemeMode.light;
 
   double _totalPerPerson = 0;
   double _billPerPerson = 0;
   double _tipPerPerson = 0;
 
   final billTotalController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadThemePreference();
+  }
+
+  // Load saved theme preference on app start
+  void _loadThemePreference() async {
+    final savedTheme = await ThemeManager.getThemePreference();
+    setState(() {
+      _currentTheme = savedTheme;
+      updateTheme(_currentTheme);
+    });
+  }
+
+  // Toggle between light and dark themes
+  void _toggleTheme() async {
+    final newTheme = _currentTheme == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+    await ThemeManager.setThemePreference(newTheme);
+    setState(() {
+      _currentTheme = newTheme;
+      updateTheme(_currentTheme);
+    });
+  }
 
   //
   // @override
@@ -508,3 +537,4 @@ class RoundIconButton extends StatelessWidget {
     );
   }
 }
+
