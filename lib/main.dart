@@ -67,6 +67,31 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final billTotalController = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+    _loadThemePreference();
+  }
+
+  // Load saved theme preference on app start
+  void _loadThemePreference() async {
+    final savedTheme = await ThemeManager.getThemePreference();
+    setState(() {
+      _currentTheme = savedTheme;
+      updateTheme(_currentTheme);
+    });
+  }
+
+  // Toggle between light and dark themes
+  void _toggleTheme() async {
+    final newTheme = _currentTheme == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+    await ThemeManager.setThemePreference(newTheme);
+    setState(() {
+      _currentTheme = newTheme;
+      updateTheme(_currentTheme);
+    });
+  }
+
   //
   // @override
   // void initState(){
@@ -512,3 +537,4 @@ class RoundIconButton extends StatelessWidget {
     );
   }
 }
+
